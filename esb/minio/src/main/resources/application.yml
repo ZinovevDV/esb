@@ -1,0 +1,7 @@
+service:
+  name: minio
+minio:
+  login: ${MINIO_LOGIN:miniologin}
+  password: ${MINIO_PASSWORD:miniopassword}
+  host: ${MINIO_HOST:localhost}
+  port: ${MINIO_PORT:19000}
