@@ -1,5 +1,3 @@
-service:
-  name: minio
 minio:
   login: ${MINIO_LOGIN:miniologin}
   password: ${MINIO_PASSWORD:miniopassword}
