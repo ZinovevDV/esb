@@ -1,7 +1,6 @@
 package ru.mail.zinovev_dv.minio.controller;
 
 
-import io.minio.errors.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.compress.utils.IOUtils;
 import org.springframework.http.HttpStatus;
@@ -12,8 +11,6 @@ import ru.mail.zinovev_dv.minio.service.IOFileService;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,7 +18,7 @@ import java.security.NoSuchAlgorithmException;
 public class Controller {
     private final IOFileService fileService;
     @GetMapping(value = "file/{path}/{filename}")
-    public @ResponseBody byte[] getFile(@PathVariable String path, @PathVariable String filename) throws IOException, ErrorResponseException, InsufficientDataException, InternalException, InvalidKeyException, InvalidResponseException, NoSuchAlgorithmException, ServerException, XmlParserException {
+    public @ResponseBody byte[] getFile(@PathVariable String path, @PathVariable String filename) throws IOException{
         InputStream inputStream = fileService.getFile(path, filename);
         if (inputStream == null) {
             return new byte[0];
@@ -30,7 +27,7 @@ public class Controller {
     }
 
     @PostMapping(value = "file/{path}")
-    public ResponseEntity<String> putFile(@PathVariable String path, @RequestParam("file") MultipartFile file) throws ErrorResponseException, InsufficientDataException, InternalException, InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException, ServerException, XmlParserException {
+    public ResponseEntity<String> putFile(@PathVariable String path, @RequestParam("file") MultipartFile file) throws IOException{
         if(file == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
